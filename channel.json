@@ -25,7 +25,7 @@
             ],
             "sublime_text": "*",
             "version": "2018.09.03.07.08.42",
-            "url": "https://codeload.github.com/epitron/Julia-sublime/zip/master",
+            "url": "http://0.0.0.0:8000/Julia-sublime-master.zip",
             "date": "2018-09-03 07:08:42"
           }
         ]
