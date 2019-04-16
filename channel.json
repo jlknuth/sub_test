@@ -1,10 +1,10 @@
 {
   "schema_version": "3.0.0",
   "repositories": [
-    "https://packagecontrol.io/repository.json"
+    "https://numerica.json"
   ],
   "packages_cache": {
-    "https://packagecontrol.io/repository.json": [
+    "https://numerica.json": [
       {
         "name": "Julia",
         "description": "Julia syntax highlighting for Sublime Text 2/3",
