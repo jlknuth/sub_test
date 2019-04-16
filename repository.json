@@ -1,0 +1,17 @@
+{
+	"schema_version": "3.0.0",
+	"packages": [
+		{
+			"name": "Julia",
+			"details": "https://github.com/epitron/Julia-sublime",
+			"releases": [
+				{
+					"sublime_text": "*",
+					"branch": "master"
+				}
+			]
+		}
+	],
+	"dependencies": [],
+	"includes": []
+}
