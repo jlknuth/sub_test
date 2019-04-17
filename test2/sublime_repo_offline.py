@@ -5,6 +5,64 @@ from urllib.error import HTTPError
 from ssl import SSLError
 from collections import defaultdict
 
+def safe_mkdir(_dir):
+    if (not os.path.exists(_dir)):
+        os.makedirs(_dir)
+
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+package_cache_file = os.path.join(dir_path, 'package_cache.json')
+channel_file = os.path.join(dir_path, 'channel_v3.json')
+channel_file_local = os.path.join(dir_path, 'channel_v3_local.json')
+
+# pkg_location = 'http://127.0.0.1:8000/'
+pkg_location = 'http://0.0.0.0:8000/test2'
+
+# package_cache = {'PackageList': ['Julia'], 'Cache': []}
+# with open(package_cache_file, 'w') as fid:
+#     json.dump(package_cache, fid)
+
+with open(package_cache_file, 'r') as fid:
+    package_cache = json.load(fid)
+
+with open(channel_file, 'r') as fid:
+    channel = json.load(fid)
+
+
+channel['packages_cache']
+
+
+pkg_to_add = []
+
+for key, reps in channel['packages_cache'].items():
+    new_reps = []
+    channel['packages_cache'][key] = new_reps
+    for rep in reps:
+        name = rep['name']
+        if name in package_cache['PackageList']:
+            new_reps.append(rep)
+            releases = rep['releases']
+            for releas in releases:
+                key = str(sorted(releas.items()))
+                url = releas['url']
+                _, pth = url.split('//')
+                pth = '_'.join(pth.split('.'))
+                pth = '_'.join(pth.split(' '))
+                file_name = os.path.basename(url)
+                pkg_pth_rel = os.path.join('packages', os.path.dirname(pth))
+                new_url = os.path.join(pkg_location, pkg_pth_rel, file_name)
+                releas['url'] = new_url
+
+with open(channel_file_local, 'w') as fid:
+    json.dump(channel, fid)
+
+rel_path = os.path.join(dir_path, pkg_pth_rel)
+safe_mkdir(rel_path)
+os.system('cd {}; curl -O {}; pwd'.format(rel_path, url))
+import pudb; pudb.set_trace()
+
+
 git_dir = os.path.join(os.path.expanduser('~'), 'Downloads', 'package_control_channel')
 pkg_path_tmp = os.path.join(os.path.expanduser('~'), 'sublime_packages')
 # pkg_path = os.path.join('/data', 'sublime_packages')
