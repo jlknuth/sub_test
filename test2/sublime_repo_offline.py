@@ -11,12 +11,19 @@ def safe_mkdir(_dir):
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+pkg_location = 'http://127.0.0.1:8000/'
+
+channel_file = os.path.join(dir_path, 'channel_v3.json')
+channel_url = 'https://packagecontrol.io/channel_v3.json'
+os.system('cd {}; pwd; curl -O {}'.format(dir_path, channel_url))
 
 package_cache_file = os.path.join(dir_path, 'package_cache.json')
-channel_file = os.path.join(dir_path, 'channel_v3.json')
 channel_file_local = os.path.join(dir_path, 'channel_v3_local.json')
 
-pkg_location = 'http://127.0.0.1:8000/'
+# response = urllib.request.urlopen(channel_url)
+# html = response.read()
+# JSON_object = json.loads(html)
+
 # pkg_location = 'http://0.0.0.0:8000/test2'
 
 # package_cache = {'PackageList': ['Julia'], 'Cache': {}}
@@ -28,9 +35,6 @@ with open(package_cache_file, 'r') as fid:
 
 with open(channel_file, 'r') as fid:
     channel = json.load(fid)
-
-
-channel['packages_cache']
 
 
 pkg_to_add = []
